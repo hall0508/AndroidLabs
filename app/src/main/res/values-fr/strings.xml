@@ -2,4 +2,10 @@
 <resources>
     <string name="hello_message">Bonjour!</string>
     <string name="ButtonText">Je suis un Button!</string>
+    <string name="check_this_out">Regarde ça!</string>
+    <string name="look_at_my_gui">Regardez mon interface graphique</string>
+    <string name="click_here">CLIQUEZ ICI</string>
+    <string name="type_here">ÉCRIVEZ ICI</string>
+    <string name="switch_on_off">Allumer / éteindre</string>
+
 </resources>
