@@ -7,4 +7,5 @@
     <string name="click_here">CLICK HERE</string>
     <string name="type_here">Type here</string>
     <string name="switch_on_off">Switch on / off</string>
+    <string name="toast_message">Here is more information</string>
 </resources>
