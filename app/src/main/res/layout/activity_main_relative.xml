@@ -6,54 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <GridLayout
+    <RelativeLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="2"
-        android:orientation="vertical"
-        android:rowCount="4">
-
+        android:layout_height="match_parent">
         <TextView
+            android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-
-            android:layout_columnSpan="2"
-
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:text="@string/look_at_my_gui"
-            android:textSize="30sp"
-            tools:ignore="MissingConstraints" />
+            android:textSize="30sp" />
         <Button
             android:id="@+id/clickhere"
+            android:layout_below="@+id/tv"
             android:layout_width="wrap_content"
+            android:layout_toLeftOf="@+id/swch"
+            android:layout_alignParentLeft="true"
             android:layout_height="wrap_content"
-            android:layout_gravity="fill"
-            android:layout_weight="1"
             android:text="@string/click_here" />
         <ImageButton
             android:id="@+id/imgBtn"
+            android:layout_below="@+id/clickhere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/flag" />
         <EditText
-            android:layout_width="match_parent"
+            android:id="@+id/et"
+            android:layout_below="@+id/imgBtn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnSpan="2"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:hint="@string/type_here"
             android:inputType="textPersonName" />
         <CheckBox
             android:id="@+id/check_this_out"
+            android:layout_toRightOf="@+id/imgBtn"
+            android:layout_below="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:text="@string/check_this_out" />
         <Switch
             android:id="@+id/swch"
+            android:layout_toRightOf="@+id/imgBtn"
+            android:layout_below="@+id/clickhere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/switch_on_off" />
-
-    </GridLayout>
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
