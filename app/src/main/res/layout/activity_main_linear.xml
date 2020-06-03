@@ -27,12 +27,16 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="fill"
             android:id="@+id/clickhere"
             android:text="@string/click_here" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="fill"
             android:id="@+id/check_this_out"
             android:text="@string/check_this_out"
             />
