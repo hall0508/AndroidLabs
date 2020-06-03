@@ -25,17 +25,29 @@ public class MainActivity extends AppCompatActivity {
         Switch swch = findViewById(R.id.swch);
         CheckBox check = findViewById(R.id.check_this_out);
         Button btn = findViewById(R.id.clickhere);
-//        //Listeners
-//        check.setOnClickListener( v -> {
-//            Toast toast = Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_message), Toast.LENGTH_LONG);
-//            toast.show();
-//            Snackbar snackbar = Snackbar.make(layout,"The switch is now On",Snackbar.LENGTH_SHORT);
-//            snackbar.show();
-//        });
-//        //swch.setOnCheckedChangeListener();
-//            Snackbar.make(check,"Switch is now on", Snackbar.LENGTH_LONG).setAction("Undo", v -> check.setChecked(faalse)).show();
-//        }
-//
-//
-//    }
-}
+        //Listeners
+        check.setOnClickListener( v -> {
+            Toast toast = Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_message), Toast.LENGTH_LONG);
+            toast.show();
+            //Snackbar snackbar = Snackbar.make(layout,"The switch is now On",Snackbar.LENGTH_SHORT);
+            //snackbar.show();
+        });
+        check.setOnCheckedChangeListener(((buttonView, isChecked) -> {
+            if (isChecked) {
+                Snackbar.make(check, R.string.checkOn, Snackbar.LENGTH_LONG).setAction(R.string.undo, v -> check.setChecked(false)).show();
+            }else {
+                Snackbar.make(check, R.string.checkOff, Snackbar.LENGTH_LONG).setAction(R.string.undo, v -> check.setChecked(true)).show();
+            }
+        }));
+        swch.setOnCheckedChangeListener(((buttonView, isChecked) -> {
+            if (isChecked) {
+                Snackbar.make(swch, R.string.swchOn, Snackbar.LENGTH_LONG).setAction(R.string.undo, v -> swch.setChecked(false)).show();
+            }else {
+                Snackbar.make(swch, R.string.swchOff, Snackbar.LENGTH_LONG).setAction(R.string.undo, v -> swch.setChecked(true)).show();
+            }
+
+        }));
+        }
+
+
+    }

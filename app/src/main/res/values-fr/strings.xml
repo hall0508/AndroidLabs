@@ -7,5 +7,11 @@
     <string name="click_here">CLIQUEZ ICI</string>
     <string name="type_here">ÉCRIVEZ ICI</string>
     <string name="switch_on_off">Allumer / éteindre</string>
-
+//
+    <string name="toast_message">Voici plus d\'informations</string>
+    <string name="checkOn">La case à cocher est maintenant activée</string>
+    <string name="checkOff">La case à cocher est maintenant désactivée</string>
+    <string name="swchOn">L\'interrupteur est maintenant activé</string>
+    <string name="swchOff">L\'interrupteur est maintenant éteint</string>
+    <string name="undo">Annuler</string>
 </resources>

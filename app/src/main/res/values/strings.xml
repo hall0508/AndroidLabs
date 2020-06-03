@@ -8,4 +8,9 @@
     <string name="type_here">Type here</string>
     <string name="switch_on_off">Switch on / off</string>
     <string name="toast_message">Here is more information</string>
+    <string name="checkOn">The checkbox is now on</string>
+    <string name="checkOff">The checkbox is now off</string>
+    <string name="swchOn">The switch is now on</string>
+    <string name="swchOff">The switch is now off</string>
+    <string name="undo">Undo</string>
 </resources>
