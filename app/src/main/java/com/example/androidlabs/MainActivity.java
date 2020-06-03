@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Layouts
+        //setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main_linear);
         //Tag every object
         LinearLayout layout = findViewById(R.id.layout);
