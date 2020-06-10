@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <TextView
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your profile" />
+    <TextView
+        android:id="@+id/urName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your name:" />
+    <EditText
+        android:id="@+id/enterName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your name" />
+    <TextView
+        android:id="@+id/urEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your email:" />
+    <EditText
+        android:id="@+id/enterEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your email"
+        android:inputType="textEmailAddress"/>
+
+    <TextView
+        android:id="@+id/urPic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your picture:" />
+
+    <ImageButton
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/picture_frame"/>
+
+    <TextView
+        android:id="@+id/clickAbove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click the button above to take a picture" />
+
+
+
+
+</LinearLayout>
