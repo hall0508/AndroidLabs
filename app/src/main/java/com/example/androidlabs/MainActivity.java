@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     public EditText tv;
     public Button btn;
-    public boolean temp;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
         tv.setText(sp.getString("Email",""));
             btn.setOnClickListener( l -> {
-                temp = true;
                 Intent goToProfile = new Intent(MainActivity.this, ProfileActivity.class);
                 goToProfile.putExtra("EMAIL",tv.getText().toString());
                 startActivity(goToProfile);

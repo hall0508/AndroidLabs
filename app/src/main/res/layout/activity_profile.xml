@@ -10,34 +10,34 @@
         android:id="@+id/profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your profile" />
+        android:text="@string/your_profile" />
     <TextView
         android:id="@+id/urName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your name:" />
+        android:text="@string/your_name" />
     <EditText
         android:id="@+id/enterName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your name" />
+        android:hint="@string/enter_your_name" />
     <TextView
         android:id="@+id/urEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your email:" />
+        android:text="@string/your_email" />
     <EditText
         android:id="@+id/enterEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your email"
+        android:hint="@string/enter_your_email"
         android:inputType="textEmailAddress"/>
 
     <TextView
         android:id="@+id/urPic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your picture:" />
+        android:text="@string/your_picture" />
 
     <ImageButton
         android:id="@+id/img"
@@ -49,7 +49,7 @@
         android:id="@+id/clickAbove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Click the button above to take a picture" />
+        android:text="@string/click_the_button_above_to_take_a_picture" />
 
 
 

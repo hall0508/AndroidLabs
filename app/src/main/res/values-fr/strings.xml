@@ -14,4 +14,16 @@
     <string name="swchOn">L\'interrupteur est maintenant activé</string>
     <string name="swchOff">L\'interrupteur est maintenant éteint</string>
     <string name="undo">Annuler</string>
+//
+    <string name="enter_your_email_address">Entrez votre adresse email:</string>
+    <string name="type_email_here">Saisissez votre e-mail ici</string>
+    <string name="type_your_password">Tapez votre mot de passe:</string>
+    <string name="login">S\'identifier</string>
+    <string name="your_profile">Votre profil</string>
+    <string name="your_name">Votre nom:</string>
+    <string name="enter_your_name">Entrez votre nom</string>
+    <string name="your_email">Votre email:</string>
+    <string name="enter_your_email">Entrer votre Email</string>
+    <string name="your_picture">Ta photo:</string>
+    <string name="click_the_button_above_to_take_a_picture">Cliquez sur le bouton ci-dessus pour prendre une photo</string>
 </resources>
