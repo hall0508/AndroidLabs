@@ -18,7 +18,7 @@
     <string name="enter_your_email_address">Entrez votre adresse email:</string>
     <string name="type_email_here">Saisissez votre e-mail ici</string>
     <string name="type_your_password">Tapez votre mot de passe:</string>
-    <string name="login">S\'identifier</string>
+    <string name="GoToChat">Accéder au chat</string>
     <string name="your_profile">Votre profil</string>
     <string name="your_name">Votre nom:</string>
     <string name="enter_your_name">Entrez votre nom</string>

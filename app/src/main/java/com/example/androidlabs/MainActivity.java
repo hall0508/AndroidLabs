@@ -18,29 +18,16 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
-
-    public EditText tv;
     public Button btn;
+    public EditText tv;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         tv = findViewById(R.id.editTextTextEmailAddress);
-         btn = findViewById(R.id.button);
-        SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
-        tv.setText(sp.getString("Email",""));
+         btn = findViewById(R.id.GoToChat);
             btn.setOnClickListener( l -> {
-                Intent goToProfile = new Intent(MainActivity.this, ProfileActivity.class);
-                goToProfile.putExtra("EMAIL",tv.getText().toString());
-                startActivity(goToProfile);
+                Intent GoToChat = new Intent(MainActivity.this, GoToChat.class);
+                startActivity(GoToChat);
             });
         }
-    @Override
-    protected void onPause() {
-        super.onPause();
-            SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sp.edit();
-            editor.putString("Email",tv.getText().toString());
-            editor.commit();
-    }
 
     }
