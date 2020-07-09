@@ -2,7 +2,9 @@ package com.example.androidlabs;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ public class GoToChat extends AppCompatActivity {
     EditText type;
     ArrayList<String> elements;
     MyListAdapter myAdapter;
+    message message;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,19 +37,36 @@ public class GoToChat extends AppCompatActivity {
         elements = new ArrayList<>();
 
         send.setOnClickListener( l -> {
-            message message = new message(type.getText().toString(),true);
+             message = new message(type.getText().toString(),true);
             elements.add(message.text());
             myAdapter.notifyDataSetChanged();
+            type.setText("");
         });
 
         receive.setOnClickListener( l -> {
-            message message = new message(type.getText().toString(),false);
+             message = new message(type.getText().toString(),false);
             elements.add(message.text());
             myAdapter.notifyDataSetChanged();
+            type.setText("");
         });
 
         myList = (ListView) findViewById(R.id.list);
         myList.setAdapter(myAdapter = new MyListAdapter());
+
+        myList.setOnItemLongClickListener((parent,view,position,id) -> {
+         AlertDialog.Builder check = new AlertDialog.Builder(this);
+         check.setTitle("Do you want to delete this?");
+         check.setMessage("The selected row is : "+position+" The database id : "+id);
+         check.setPositiveButton("Yes", (click,arg) -> {
+             elements.remove(position);
+             myAdapter.notifyDataSetChanged();
+         });
+         check.setNegativeButton("No", (click,arg) -> {
+         });
+         check.create();
+         check.show();
+         return true;
+        });
 
     }
     class MyListAdapter extends BaseAdapter {
@@ -68,34 +88,39 @@ public class GoToChat extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (message.sent()){
-                LayoutInflater inflater = getLayoutInflater();
-                View tempView = inflater.inflate(R.layout.sent_layout, parent,false);
-                TextView text = tempView.findViewById(R.id.textSend);
-                text.setText(getItem(position).toString());
-                //tempView.findViewById(R.id.imageSend);
-                return tempView;
-
-            }else{
-                LayoutInflater inflater = getLayoutInflater();
-                View tempView = inflater.inflate(R.layout.receive_layout, parent,false);
-                TextView text = tempView.findViewById(R.id.textReceive);
-                text.setText(getItem(position).toString());
-                //tempView.findViewById(R.id.imageReceive);
-                return tempView;
-
+            LayoutInflater inflate = GoToChat.this.getLayoutInflater();
+            View view = convertView;
+            if (view == null) {
+                if (message.sent()) {
+                    view = inflate.inflate(R.layout.sent_layout, null);
+                    TextView text = view.findViewById(R.id.textSend);
+                    text.setText(getItem(position).toString());
+                } else {
+                    view = inflate.inflate(R.layout.receive_layout, null);
+                    TextView text = view.findViewById(R.id.textReceive);
+                    text.setText(getItem(position).toString());
+                }
             }
-
+            if (message.sent()){
+                view = inflate.inflate(R.layout.sent_layout, null);
+                TextView text = view.findViewById(R.id.textSend);
+                text.setText(getItem(position).toString());
+            }else{
+                view = inflate.inflate(R.layout.receive_layout, null);
+                TextView text = view.findViewById(R.id.textReceive);
+                text.setText(getItem(position).toString());
+            }
+            return view;
         }
     }
-    static class message{
+      class message{
          String text;
-         static boolean var;
+          boolean var;
         public message(String a, boolean b){
             text=a;
             var=b;
         }
-        public static boolean sent(){
+        public  boolean sent(){
             return var;
         }
         public String text(){

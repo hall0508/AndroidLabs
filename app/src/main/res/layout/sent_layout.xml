@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/row_send"
+        android:layout_alignParentRight="true"
+        android:id="@+id/imageSent"/>
     <TextView
         android:id="@+id/textSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
         android:layout_alignParentRight="true"
-        />
-
-
-
-
+        android:layout_below="@+id/imageSent"
+        android:textSize="20dp" />
 </RelativeLayout>

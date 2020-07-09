@@ -4,13 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/row_receive"
+        android:id="@+id/imageReceive"
+        android:layout_alignParentLeft="true"
+        />
     <TextView
         android:id="@+id/textReceive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
-        />
+        android:textSize="20dp"
+        android:layout_below="@+id/imageReceive"
+        android:layout_alignParentLeft="true"/>
 
 
 
