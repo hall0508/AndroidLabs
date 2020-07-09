@@ -24,7 +24,7 @@ public class GoToChat extends AppCompatActivity {
     Button send;
     Button receive;
     EditText type;
-    ArrayList<String> elements;
+    ArrayList<message> elements;
     MyListAdapter myAdapter;
     message message;
     @Override
@@ -37,15 +37,15 @@ public class GoToChat extends AppCompatActivity {
         elements = new ArrayList<>();
 
         send.setOnClickListener( l -> {
-             message = new message(type.getText().toString(),true);
-            elements.add(message.text());
+            message = new message(type.getText().toString(),true);
+            elements.add(message);
             myAdapter.notifyDataSetChanged();
             type.setText("");
         });
 
         receive.setOnClickListener( l -> {
-             message = new message(type.getText().toString(),false);
-            elements.add(message.text());
+            message = new message(type.getText().toString(),false);
+            elements.add(message);
             myAdapter.notifyDataSetChanged();
             type.setText("");
         });
@@ -88,34 +88,25 @@ public class GoToChat extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflate = GoToChat.this.getLayoutInflater();
-            View view = convertView;
-            if (view == null) {
-                if (message.sent()) {
-                    view = inflate.inflate(R.layout.sent_layout, null);
+                 LayoutInflater inflate = getLayoutInflater();
+
+                if (elements.get(position).sent()) {
+                    View view = inflate.inflate(R.layout.sent_layout, parent,false);
                     TextView text = view.findViewById(R.id.textSend);
-                    text.setText(getItem(position).toString());
+                    text.setText(elements.get(position).text());
+                    return view;
                 } else {
-                    view = inflate.inflate(R.layout.receive_layout, null);
+                    View view = inflate.inflate(R.layout.receive_layout, parent,false);
                     TextView text = view.findViewById(R.id.textReceive);
-                    text.setText(getItem(position).toString());
+                    text.setText(elements.get(position).text());
+                    return view;
                 }
-            }
-            if (message.sent()){
-                view = inflate.inflate(R.layout.sent_layout, null);
-                TextView text = view.findViewById(R.id.textSend);
-                text.setText(getItem(position).toString());
-            }else{
-                view = inflate.inflate(R.layout.receive_layout, null);
-                TextView text = view.findViewById(R.id.textReceive);
-                text.setText(getItem(position).toString());
-            }
-            return view;
         }
     }
       class message{
-         String text;
+          String text;
           boolean var;
+          long id;
         public message(String a, boolean b){
             text=a;
             var=b;
