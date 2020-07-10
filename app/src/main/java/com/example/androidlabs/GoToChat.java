@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,14 +88,13 @@ public class GoToChat extends AppCompatActivity {
          check.show();
          return true;
         });
-
     }
 
     private void loadDataFromDatabase() {
         String [] columns = {mydb.COL_1, mydb.COL_2, mydb.COL_3};
         db = mydb.getWritableDatabase();
         Cursor results = db.query(false, mydb.TABLE_NAME, columns, null, null, null, null, null, null);
-
+        mydb.printCursor(results,db.getVersion());
         int sentColumnIndex = results.getColumnIndex(mydb.COL_3);
         int messageColIndex = results.getColumnIndex(mydb.COL_2);
         int idColIndex = results.getColumnIndex(mydb.COL_1);
@@ -212,6 +212,11 @@ class MyOpener extends SQLiteOpenHelper {
         if (result ==-1)
             return false;
         return true;
+    }
+    public void printCursor(Cursor c, int version){
+        Log.v("dbVersion",""+version);
+        Log.v("dbColumnAmount",""+c.getColumnCount());
+        Log.v("dbColumnNames",""+c.getColumnNames());
     }
 }
 
