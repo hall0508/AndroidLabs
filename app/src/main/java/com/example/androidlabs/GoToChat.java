@@ -34,6 +34,7 @@ public class GoToChat extends AppCompatActivity {
     MyListAdapter myAdapter;
     message message;
     MyOpener mydb;
+    SQLiteDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,17 +91,26 @@ public class GoToChat extends AppCompatActivity {
     }
 
     private void loadDataFromDatabase() {
-        Cursor result = mydb.getData();
-        if (result.getCount()==0){
+        String [] columns = {mydb.COL_1, mydb.COL_2, mydb.COL_3};
+        db = mydb.getWritableDatabase();
+        Cursor results = db.query(false, mydb.TABLE_NAME, columns, null, null, null, null, null, null);
+
+        int sentColumnIndex = results.getColumnIndex(mydb.COL_3);
+        int messageColIndex = results.getColumnIndex(mydb.COL_2);
+        int idColIndex = results.getColumnIndex(mydb.COL_1);
+        if (results.getCount()==0){
             Toast.makeText(GoToChat.this,"Database is empty",Toast.LENGTH_SHORT).show();
         }
-        while (result.moveToNext()){
+        while (results.moveToNext()){
+            String sent = results.getString(sentColumnIndex);
+            String text = results.getString(messageColIndex);
+            long id = results.getLong(idColIndex);
             boolean temp;
-            if (result.getString(2) == "1")
+            if (sent.equals("1"))
                 temp = true;
             else
                 temp = false;
-            message = new message(result.getString(1),temp);
+            message = new message(id,text,temp);
             elements.add(message);
         }
     }
@@ -148,12 +158,18 @@ public class GoToChat extends AppCompatActivity {
             text=a;
             isSent =b;
         }
+          public message(Long id, String a, boolean b){
+              this.id = id;
+              text=a;
+              isSent =b;
+          }
         public  boolean sent(){
             return isSent ;
         }
         public String text(){
             return text;
         }
+        public long getId(){ return id; }
     }
 }
 class MyOpener extends SQLiteOpenHelper {
@@ -196,11 +212,6 @@ class MyOpener extends SQLiteOpenHelper {
         if (result ==-1)
             return false;
         return true;
-    }
-    public Cursor getData(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM "+ DATABASE_NAME,null);
-        return data;
     }
 }
 
