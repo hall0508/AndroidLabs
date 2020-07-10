@@ -3,6 +3,11 @@ package com.example.androidlabs;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -16,6 +21,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -27,6 +33,7 @@ public class GoToChat extends AppCompatActivity {
     ArrayList<message> elements;
     MyListAdapter myAdapter;
     message message;
+    MyOpener mydb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +43,17 @@ public class GoToChat extends AppCompatActivity {
         type = findViewById(R.id.text);
         elements = new ArrayList<>();
 
+        mydb = new MyOpener(this);
+
         send.setOnClickListener( l -> {
             message = new message(type.getText().toString(),true);
             elements.add(message);
             myAdapter.notifyDataSetChanged();
+            boolean isInserted = mydb.add(type.getText().toString(),true);
+                if (isInserted)
+                    Toast.makeText(GoToChat.this,"Data is in",Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(GoToChat.this,"Data is not in",Toast.LENGTH_SHORT).show();
             type.setText("");
         });
 
@@ -47,9 +61,14 @@ public class GoToChat extends AppCompatActivity {
             message = new message(type.getText().toString(),false);
             elements.add(message);
             myAdapter.notifyDataSetChanged();
+            boolean isInserted = mydb.add(type.getText().toString(),false);
+            if (isInserted)
+                Toast.makeText(GoToChat.this,"Data is in",Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(GoToChat.this,"Data is not in",Toast.LENGTH_SHORT).show();
             type.setText("");
         });
-
+        loadDataFromDatabase();
         myList = (ListView) findViewById(R.id.list);
         myList.setAdapter(myAdapter = new MyListAdapter());
 
@@ -69,6 +88,23 @@ public class GoToChat extends AppCompatActivity {
         });
 
     }
+
+    private void loadDataFromDatabase() {
+        Cursor result = mydb.getData();
+        if (result.getCount()==0){
+            Toast.makeText(GoToChat.this,"Database is empty",Toast.LENGTH_SHORT).show();
+        }
+        while (result.moveToNext()){
+            boolean temp;
+            if (result.getString(2) == "1")
+                temp = true;
+            else
+                temp = false;
+            message = new message(result.getString(1),temp);
+            elements.add(message);
+        }
+    }
+
     class MyListAdapter extends BaseAdapter {
 
         @Override
@@ -102,22 +138,72 @@ public class GoToChat extends AppCompatActivity {
                     return view;
                 }
         }
+        
     }
       class message{
           String text;
-          boolean var;
+          boolean isSent ;
           long id;
         public message(String a, boolean b){
             text=a;
-            var=b;
+            isSent =b;
         }
         public  boolean sent(){
-            return var;
+            return isSent ;
         }
         public String text(){
             return text;
         }
     }
 }
+class MyOpener extends SQLiteOpenHelper {
+
+    public static final String DATABASE_NAME = "Messages.db";
+    public static final String TABLE_NAME = "messages_table";
+    public static final String COL_1 = "ID";
+    public static final String COL_2 = "messageData";
+    public static final String COL_3 = "sent";
+
+
+    public MyOpener(Context ct){
+    super(ct,DATABASE_NAME,null,1);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE "+ TABLE_NAME +
+                "( _id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COL_1 + " integer," +
+                " "+ COL_2 +" text," +
+                " "+ COL_3 + " integer);"
+                );
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        onCreate(db);
+    }
+    public boolean add(String text,boolean sent){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_2,text);
+        if (sent)
+            cv.put(COL_3,1);
+        else
+            cv.put(COL_3,0);
+        long result = db.insert(TABLE_NAME,null,cv);
+        if (result ==-1)
+            return false;
+        return true;
+    }
+    public Cursor getData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data = db.rawQuery("SELECT * FROM "+ DATABASE_NAME,null);
+        return data;
+    }
+}
+
+
 
 
