@@ -12,7 +12,9 @@
         android:id="@+id/GoToChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/GoToChat" />
+        android:text="@string/GoToChat"
+
+    />
 
 
 
