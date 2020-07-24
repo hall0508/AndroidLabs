@@ -1,10 +1,12 @@
 package com.example.androidlabs;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -18,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -36,6 +39,7 @@ public class GoToChat extends AppCompatActivity {
     message message;
     MyOpener mydb;
     SQLiteDatabase db;
+    FrameLayout fl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +47,10 @@ public class GoToChat extends AppCompatActivity {
         send = findViewById(R.id.send);
         receive = findViewById(R.id.receive);
         type = findViewById(R.id.text);
+        fl = findViewById(R.id.frameLayout);
+        boolean isTablet = findViewById(R.id.frameLayout) != null;
         elements = new ArrayList<>();
-
+        FragmentManager fm = getSupportFragmentManager();
         mydb = new MyOpener(this);
 
         send.setOnClickListener( l -> {
@@ -74,6 +80,20 @@ public class GoToChat extends AppCompatActivity {
         myList = (ListView) findViewById(R.id.list);
         myList.setAdapter(myAdapter = new MyListAdapter());
 
+
+        myList.setOnItemClickListener((list,item,position,id) -> {
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString("ITEM", myAdapter.getItem(position).toString());
+            dataToPass.putInt("POSITION", position);
+            dataToPass.putLong("ID", id);
+            if (isTablet){
+
+            }else {
+                Intent nextActivity = new Intent(GoToChat.this, EmptyActivity.class);
+                nextActivity.putExtras(dataToPass); //send data to next activity
+                startActivity(nextActivity); //make the transition
+            }
+        });
         myList.setOnItemLongClickListener((parent,view,position,id) -> {
          AlertDialog.Builder check = new AlertDialog.Builder(this);
          check.setTitle("Do you want to delete this?");
