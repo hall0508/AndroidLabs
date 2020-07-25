@@ -1,6 +1,7 @@
 package com.example.androidlabs;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
@@ -40,6 +41,12 @@ public class GoToChat extends AppCompatActivity {
     MyOpener mydb;
     SQLiteDatabase db;
     FrameLayout fl;
+
+    public static final String ITEM_SELECTED = "ITEM";
+    public static final String ITEM_POSITION = "POSITION";
+    public static final String ITEM_ID = "ID";
+    public static final String ITEM_BOOLEAN = "BOOLEAN";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,11 +90,17 @@ public class GoToChat extends AppCompatActivity {
 
         myList.setOnItemClickListener((list,item,position,id) -> {
             Bundle dataToPass = new Bundle();
-            dataToPass.putString("ITEM", myAdapter.getItem(position).toString());
-            dataToPass.putInt("POSITION", position);
-            dataToPass.putLong("ID", id);
+            dataToPass.putString(ITEM_SELECTED, elements.get(position).text());
+            dataToPass.putInt(ITEM_POSITION, position);
+            dataToPass.putLong(ITEM_ID, id);
+            dataToPass.putBoolean(ITEM_BOOLEAN,elements.get(position).isSent);
             if (isTablet){
-
+                DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
+                dFragment.setArguments( dataToPass ); //pass it a bundle for information
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, dFragment) //Add the fragment in FrameLayout
+                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
             }else {
                 Intent nextActivity = new Intent(GoToChat.this, EmptyActivity.class);
                 nextActivity.putExtras(dataToPass); //send data to next activity
@@ -99,6 +112,9 @@ public class GoToChat extends AppCompatActivity {
          check.setTitle("Do you want to delete this?");
          check.setMessage("The selected row is : "+position+" The database id : "+id);
          check.setPositiveButton("Yes", (click,arg) -> {
+             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
+             if (fragment!=null)
+                 getSupportFragmentManager().beginTransaction().remove(fragment).commit();
              elements.remove(position);
              myAdapter.notifyDataSetChanged();
          });
